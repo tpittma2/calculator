@@ -6,11 +6,11 @@ const calc = {
 };
 
 const keyCodes = {
-    esc: 27,
-    backspace: 8,
-    decimal: 110,
-    enter: 13,
-    equals: 187,
+    esc: 'Escape',
+    backspace: 'Backspace',
+    decimal: 'Period',
+    enter: 'Enter',
+    equals: 'Equal',
     '+': 107,
     '-': 109,
     '*': 106,
@@ -118,7 +118,7 @@ function numberButton_click(e) {
         if (calc.firstVal == null || calc.firstVal == '0') {
             calc.firstVal = number;
         }
-        else if (number != '0') {
+        else {
             calc.firstVal += number;
         }
     }
@@ -186,19 +186,19 @@ function btnNegative_click() {
 
 }
 
-function btnDecimal_click() {
+function addDecimal() {
     if (calc.result != null)
         return;
     if (calc.operator == null) {
-        calc.firstVal = addDecimal(calc.firstVal);
+        calc.firstVal = addDecimalToNum(calc.firstVal);
     }
     else {
-        calc.secondVal = addDecimal(calc.secondVal);
+        calc.secondVal = addDecimalToNum(calc.secondVal);
     }
     refreshScreen();
 }
 
-function addDecimal(num) {
+function addDecimalToNum(num) {
     if (num == null)
         return '0.';
     else if (!num.toString().includes('.')) {
@@ -215,36 +215,39 @@ function toggleNumberNegativity(num) {
 
 function processKeyDow(e)
 {
-    if(e.keyCode == keyCodes.esc)
+    if(e.keyCode == 13)
+        e.preventDefault();
+    if(e.key === 'Escape')
         btnAllClear.click();
-    else if(e.keyCode == keyCodes.backspace)
+    else if(e.key === 'Backspace')
         btnBackspace.click();
-    else if(e.keyCode == keyCodes.decimal)
+    else if(e.key === '.')
         btnDecimal.click();
-    else if(e.keyCode == keyCodes.equals || e.keyCode == keyCodes.enter)
+    else if(e.key === 'Enter' || e.key === '=')
         btnEquals.click();
+    else if(e.key >= 0 && e.key <= 9)
+    {
+        numButtons.forEach(x=> {
+            if(e.key === x.dataset.value)
+            {
+                keyFound = true;
+                x.click();
+            }
+        });  
+    }
     else
     {
-        let keyFound = false;
         operatorButtons.forEach(x=> 
             {
-                if(e.keyCode == keyCodes[x.dataset.value])
+                if(e.key === x.dataset.value)
                 {
                     keyFound = true;
                     x.click();
                 }
             });
-        if(!keyFound)
-        {
-            numButtons.forEach(x=> {
-                if(e.keyCode == keyCodes[x.dataset.value])
-                {
-                    keyFound = true;
-                    x.click();
-                }
-            });
-        }    
     }
+
+
 }
 
 
@@ -254,7 +257,7 @@ refreshScreen();
 btnAllClear.addEventListener('click', resetCalculator);
 btnBackspace.addEventListener('click', backspaceButton_click);
 btnNegative.addEventListener('click', btnNegative_click);
-btnDecimal.addEventListener('click', btnDecimal_click);
+btnDecimal.addEventListener('click', addDecimal);
 
 btnEquals.addEventListener('click', () => {
     if (calc.result != null) //already calculated
@@ -273,4 +276,6 @@ numButtons.forEach(x => x.addEventListener('click', numberButton_click));
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(x => x.addEventListener('click', operatorButton_click));
 
-document.addEventListener('keydown', processKeyDow);
+document.addEventListener('keydown', processKeyDow, {
+    capture: true,
+});

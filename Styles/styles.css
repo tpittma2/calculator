@@ -5,8 +5,8 @@ html {
 
 .container {
     background-color: navy;
-    width: 500px;
-    height: 700px;
+    min-width: 500px;
+    min-height: 700px;
     border: 2px solid black;
     border-radius: 5px;
     display: flex;
@@ -15,17 +15,23 @@ html {
 
 .screen {
     background-color: lightgray;
-    height: 100px;
+    min-height: 100px;
     margin: 10px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .screen div {
     margin: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: right;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .top-screen {
