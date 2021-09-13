@@ -1,16 +1,19 @@
 html {
     --button-gap: 5px;
+    font-family: 'Quicksand', 'Roboto', sans-serif;
 }
 
 
 .container {
     background-color: navy;
-    min-width: 500px;
+   max-width: 500px;
     min-height: 700px;
     border: 2px solid black;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    box-shadow: 5px 5px 12px rgb(0 0 0 / 50%);
+    background: #212121;
 }
 
 .screen {
@@ -23,6 +26,7 @@ html {
     justify-content: space-between;
     align-items: flex-end;
     flex-wrap: wrap;
+    box-shadow: inset 2px 3px 5px 0px rgb(0 0 0 / 70%);
 }
 
 .screen div {
@@ -53,6 +57,7 @@ html {
     align-items: stretch;
     gap: var(--button-gap);
     margin: 10px;
+   
 }
 
 .buttons div{
@@ -60,18 +65,40 @@ html {
     justify-content:space-evenly;
     flex:1;
     gap: var(--button-gap);
+    
 }
 
 .buttons button {
     flex: 1;
     font-size: 35px;
-    border-radius: 25px;
+    border-radius: 25%;
+    color: #DFDFDF;
+    box-shadow: 4px 5px 5px 0px rgb(0 0 0 / 50%);
+    background: #616161;
+    border: 0px solid transparent;
 }
 
-button:hover {
-    
+.buttons button:hover {
+    background: #bdbdbd;
+    color: #212121;
+    transform: translateY(-0.2rem);
 }
 
-.equals {
-    flex: 3;
+
+.buttons .clear:hover, .buttons .backspace:hover {
+    background: lightcoral;
+
+}
+
+
+.buttons .operator:hover, .buttons .decimal:hover, .buttons .negative:hover {
+    background: lightskyblue;
+
+}
+
+
+
+.buttons .equals:hover {
+    background: limegreen;
+
 }
